@@ -4,7 +4,7 @@
         <div class="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-4/12 xl:w-3/12">
           <div class="mb-10 w-full">
             <a href="javascript:void(0)" class="mb-6 inline-block max-w-[160px]">
-              <img src="assets/images/logo.png" alt="logo" class="max-w-full brightness-[90]" />
+              <img src="<?= BASE_URL?>/assets/images/logo.png" alt="logo" class="max-w-full brightness-[90]" />
             </a>
             <p class="mb-7 text-base text-[#f3f4fe]">build a new brand for your self on the internet using our services</p>
             <div class="-mx-3 flex items-center">
@@ -38,13 +38,13 @@
             <h4 class="mb-9 text-lg font-semibold text-white">General Links</h4>
             <ul>
               <li>
-                <a href="javascript:void(0)" class="mb-2 inline-block text-base leading-loose text-[#f3f4fe] hover:text-primary">Home</a>
+                <a href="<?= BASE_URL?>/#home" class="mb-2 inline-block text-base leading-loose text-[#f3f4fe] hover:text-primary">Home</a>
               </li>
               <li>
-                <a href="javascript:void(0)" class="mb-2 inline-block text-base leading-loose text-[#f3f4fe] hover:text-primary">About</a>
+                <a href="<?= BASE_URL?>/#about" class="mb-2 inline-block text-base leading-loose text-[#f3f4fe] hover:text-primary">About</a>
               </li>
               <li>
-                <a href="javascript:void(0)" class="mb-2 inline-block text-base leading-loose text-[#f3f4fe] hover:text-primary">Pricing</a>
+                <a href="<?= BASE_URL?>/#pricing" class="mb-2 inline-block text-base leading-loose text-[#f3f4fe] hover:text-primary">Pricing</a>
               </li>
             </ul>
           </div>

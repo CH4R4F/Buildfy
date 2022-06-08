@@ -20,8 +20,8 @@
           </ul>
         </nav>
         <div class="hidden justify-end pr-16 sm:flex lg:pr-0">
-          <a href="signin.html" class="loginBtn py-3 px-7 text-base font-medium text-primary hover:opacity-70"> Sign In </a>
-          <a href="signup.html" class="signUpBtn rounded-md bg-primary py-3 px-6 text-base font-medium text-white duration-300 ease-in-out hover:bg-opacity-100 "> Sign Up </a>
+          <a href="<?= BASE_URL?>/auth/login" class="loginBtn py-3 px-7 text-base font-medium text-primary hover:opacity-70"> Sign In </a>
+          <a href="<?= BASE_URL?>/auth/register" class="signUpBtn rounded-md bg-primary py-3 px-6 text-base font-medium text-white duration-300 ease-in-out hover:bg-opacity-100 "> Sign Up </a>
         </div>
 
       </div>
