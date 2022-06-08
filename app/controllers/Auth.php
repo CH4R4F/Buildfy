@@ -13,4 +13,11 @@
       ];
       $this->view('login', $data);
     }
+
+    public function register() {
+      $data = [
+        'title' => 'Register | Buildfy',
+      ];
+      $this->view('register', $data);
+    }
   }
