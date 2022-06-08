@@ -37,9 +37,7 @@
         <div class="w-full px-4">
           <div class="wow fadeInUp relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-14 px-8 text-center sm:px-12 md:px-[60px]" data-wow-delay=".15s">
             <div class="mb-10 text-center">
-              <a href="javascript:void(0)" class="mx-auto inline-block max-w-[160px]">
-                <img src="assets/images/logo/logo.svg" alt="logo" />
-              </a>
+                <img class="inline-block mx-auto" src="<?= BASE_URL?>/assets/images/logo.png" alt="logo" />
             </div>
             <form>
               <div class="mb-6">
