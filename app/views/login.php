@@ -29,7 +29,6 @@
     </div>
   </div>
   <!-- ====== Banner Section End -->
-
   <!-- ====== Forms Section Start -->
   <section class="bg-[#F4F7FF] py-14 lg:py-20">
     <div class="container">
@@ -39,12 +38,12 @@
             <div class="mb-10 text-center">
                 <img class="inline-block mx-auto" src="<?= BASE_URL?>/assets/images/logo.png" alt="logo" />
             </div>
-            <form>
+            <form method="POST">
               <div class="mb-6">
-                <input type="email" placeholder="Email" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
+                <input required name="user_email" type="email" placeholder="Email" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
               </div>
               <div class="mb-6">
-                <input type="password" placeholder="Password" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
+                <input required name="user_password" type="password" placeholder="Password" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
               </div>
               <div class="mb-10">
                 <input type="submit" value="Sign In" class="bordder-primary w-full cursor-pointer rounded-md border bg-primary py-3 px-5 text-base text-white transition duration-300 ease-in-out hover:shadow-md" />
@@ -125,3 +124,14 @@
   </section>
   <?php require_once "../app/views/components/footer.php"?>
 </body>
+<script>
+  <?php if($_GET['success']):?>
+    Swal.fire({
+      icon: 'success',
+      title: 'Registred successfully',
+      text: 'You can login now',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  <?php endif;?>
+</script>

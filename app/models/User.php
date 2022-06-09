@@ -26,12 +26,15 @@
     public function login($email, $password) {
       $this->db->query("SELECT * FROM users WHERE user_email = :email");
       $this->db->bind(':email', $email);
-      $row = $this->db->single();
-      $hashed_password = $row->user_password;
-      if(password_verify($password, $hashed_password)) {
-        return $row;
+      if($this->db->single()) {
+        $hashed_password = $row['user_password'];
+        if($password == $hashed_password) {
+          return $row;
+        } else {
+          return false;
+        }
       } else {
-        return false;
+        echo "email invalid";
       }
     }
 
