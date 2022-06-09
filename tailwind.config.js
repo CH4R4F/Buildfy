@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./app/views/**/*.php"],
+  content: ["./app/views/**/*.php", "./public/assets/script/**/*.js"],
   theme: {
     screens: {
       sm: "540px",

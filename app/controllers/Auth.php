@@ -25,6 +25,7 @@
         $user = $this->model('User');
         if($user->login($email, $password)) {
           echo "hooya";
+          print_r($_SESSION);
         } else {
           echo "nope";  
         }

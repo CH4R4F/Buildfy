@@ -26,9 +26,9 @@
     public function login($email, $password) {
       $this->db->query("SELECT * FROM users WHERE user_email = :email");
       $this->db->bind(':email', $email);
-      if($this->db->single()) {
-        $hashed_password = $row['user_password'];
-        if($password == $hashed_password) {
+      if($row = $this->db->single()) {
+        if($password == $row['user_password']) {
+          $this->createSession($row);
           return $row;
         } else {
           return false;
@@ -48,5 +48,15 @@
       } else {
         return false;
       }
+    }
+
+    protected function createSession($row) {
+      $_SESSION['is_logged_in'] = true;
+      $_SESSION['user_data'] = array(
+        'user_id' => $row['user_id'],
+        'user_name' => $row['user_name'],
+        'user_email' => $row['user_email'],
+        'user_root' => $row['user_root'],
+      );
     }
   }
