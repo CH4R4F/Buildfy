@@ -18,8 +18,6 @@
       // initialize model
       $user = $this->model('User');
 
-      // errors
-
       $data = [
         'title' => 'Login | Buildfy',
         'authUrl' => $client->createAuthUrl(),
@@ -53,10 +51,14 @@
         $email = trim($_POST['user_email']);
         $password = trim($_POST['user_password']);
 
-        if($user->login($email, $password)) {
-          redirect('dashboard');
+        if($user->isGoogleAccount($email)) {
+          $data['error'] = 'This is a google account, please login with google';
         } else {
-          $data['error'] = 'Email or password is incorrect';
+          if($user->login($email, $password)) {
+            redirect('dashboard');
+          } else {
+            $data['error'] = 'Email or password is incorrect';
+          }
         }
       }
       $this->view('login', $data);
@@ -102,14 +104,18 @@
       if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $post = filter_var_array($_POST, FILTER_SANITIZE_STRING);
 
-        $post['name'] = trim($post['name']);
-        $post['email'] = trim($post['email']);
-        $post['password'] = trim($post['password']);
+        $post['user_name'] = trim($post['user_name']);
+        $post['user_email'] = trim($post['user_email']);
+        $post['user_password'] = trim($post['user_password']);
 
-        if ($user->register($post)) {
-          redirect('auth/login?success=true');
+        if($user->getUserByEmail($post['user_email'])) {
+          $data['error'] = 'User already registered';
         } else {
-          $data['error'] = 'Something went wrong';
+          if ($user->register($post)) {
+            redirect('auth/login?success=true');
+          } else {
+            $data['error'] = 'Something went wrong';
+          }
         }
       }
       $this->view('register', $data);

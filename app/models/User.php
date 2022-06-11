@@ -88,4 +88,14 @@
         'user_root' => $row['user_root'],
       );
     }
+
+    public function isGoogleAccount($email) {
+      $this->db->query('SELECT * FROM users WHERE user_email = :email');
+      $this->db->bind(':email', $email);
+      $row = $this->db->single();
+      if($row['user_token']) {
+        return true;
+      }
+      return false;
+    }
   }
