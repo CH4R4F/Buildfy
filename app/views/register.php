@@ -120,4 +120,14 @@
     </div>
   </section>
   <?php require_once "../app/views/components/footer.php"?>
+
+  <script>
+    <?php if(isset($data['error'])): ?>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '<?php echo $data['error']?>',
+      })
+    <?php endif;?>
+  </script>
 </body>
