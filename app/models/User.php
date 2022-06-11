@@ -38,6 +38,34 @@
       }
     }
 
+    public function googleAuth($email) {
+      $this->db->query("SELECT * FROM users WHERE user_email = :email");
+      $this->db->bind(':email', $email);
+      if($row = $this->db->single()) {
+        $this->createSession($row);
+        return $row;
+      } else {
+        return false;
+      }
+    }
+
+    public function googleRegister($data) {
+      $folderCode = bin2hex(random_bytes(10));
+      $this->db->query("INSERT INTO users (user_name, user_email, user_token, user_image, user_root) VALUES (:user_name, :user_email, :user_token, :user_image, :user_root)");
+      // bind values
+      $this->db->bind(':user_name', $data['name']);
+      $this->db->bind(':user_email', $data['email']);
+      $this->db->bind(':user_token', $data['id']);
+      $this->db->bind(':user_image', $data['picture']);
+      $this->db->bind(':user_root', $folderCode);
+      // execute
+      if($this->db->execute()) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     // get user by email
     public function getUserByEmail($email) {
       $this->db->query("SELECT * FROM users WHERE user_email = :email");
@@ -50,8 +78,9 @@
       }
     }
 
-    protected function createSession($row) {
+    public function createSession($row) {
       $_SESSION['is_logged_in'] = true;
+      print_r($row);
       $_SESSION['user_data'] = array(
         'user_id' => $row['user_id'],
         'user_name' => $row['user_name'],
