@@ -101,11 +101,11 @@
 
     <div>
       <span class="absolute left-0 top-0 z-[-1]">
-        <img src="assets/images/f-green.svg" alt="" />
+        <img src="<?= BASE_URL?>/assets/images/f-green.svg" alt="" />
       </span>
 
       <span class="absolute bottom-0 right-0 z-[-1]">
-        <img src="assets/images/f-blue.svg" alt="" />
+        <img src="<?= BASE_URL?>/assets/images/f-blue.svg" alt="" />
       </span>
 
       <span class="absolute top-0 right-0 z-[-1]">
