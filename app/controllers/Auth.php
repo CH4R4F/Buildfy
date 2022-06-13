@@ -1,5 +1,6 @@
 <?php
   class Auth extends Controller {
+
     public function index() {
       $data = [
         'title' => '404 | Page Not Found',
@@ -8,6 +9,9 @@
     }
 
     public function login() {
+      // check if user already logged in
+      checkSession();
+      // initialize google api client
       $client = new Google_Client();
       $client->setClientId(GOOGLE_CLIENT_ID);
       $client->setClientSecret(GOOGLE_CLIENT_SECRET);
@@ -65,6 +69,8 @@
     }
 
     public function register() {
+      // check if user already logged in
+      checkSession();
       // initialize google API
       $client = new Google_Client();
       $client->setClientId(GOOGLE_CLIENT_ID);
@@ -119,5 +125,13 @@
         }
       }
       $this->view('register', $data);
+    }
+
+    public function logout() {
+      if(isset($_SESSION) && !empty($_SESSION)) {
+        session_destroy();
+        redirect('home');
+        die();
+      }
     }
   }
