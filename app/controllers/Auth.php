@@ -96,7 +96,7 @@
           // register user
           $user->googleRegister($google_account_info);
           // redirect to dashboard
-          redirect('dashboard');
+          redirect('auth/login?success=true');
         }
       }
 
