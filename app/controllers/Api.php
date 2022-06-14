@@ -28,6 +28,6 @@
         echo 'error';
         exit();
       }
-      echo 'success';
+      echo $name;
     }
   }

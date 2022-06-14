@@ -19,6 +19,13 @@
     }
 
     public function editor($page = null) {
-      
+      if(empty($page) || $page == null) {
+        redirect('pages/new');
+        die();
+      }
+      $data = [
+        'title' => "Buildfy || $page",
+      ];
+      $this->view("editor/index", $data);
     }
   }
