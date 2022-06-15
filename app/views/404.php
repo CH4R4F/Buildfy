@@ -1,7 +1,6 @@
 <?php require_once "../app/views/components/head.php"?>
 <!-- ====== Banner Section Start -->
 <body class="min-h-screen">
-  <?php require_once "../app/views/components/nav.php"?>
   <div class="relative z-10 overflow-hidden bg-primary pt-[120px] pb-[100px] md:pt-[130px] lg:pt-[160px]">
     <div class="container">
       <div class="-mx-4 flex flex-wrap items-center">
@@ -40,15 +39,21 @@
             <h2 class="mb-8 text-3xl font-bold text-dark sm:text-4xl lg:text-[40px] xl:text-[42px]">404 - We couldn't find that page.</h2>
             <h3 class="mb-8 text-xl font-normal text-dark-700 md:text-2xl">Maybe you can find what you need here?</h3>
             <ul class="flex flex-wrap justify-center">
-              <li>
-                <a href="<?= BASE_URL?>" class="mx-2 my-1 inline-block rounded-md bg-[#f5f8ff] py-3 px-6 text-base font-medium text-dark hover:bg-primary hover:text-white">Home</a>
-              </li>
-              <li>
-                <a href="<?= BASE_URL?>/auth/login" class="mx-2 my-1 inline-block rounded-md bg-[#f5f8ff] py-3 px-6 text-base font-medium text-dark hover:bg-primary hover:text-white">Sign In</a>
-              </li>
-              <li>
-                <a href="<?= BASE_URL?>/auth/register" class="mx-2 my-1 inline-block rounded-md bg-[#f5f8ff] py-3 px-6 text-base font-medium text-dark hover:bg-primary hover:text-white">Sign Up</a>
-              </li>
+              <?php if(isset($_SESSION['user_data'])):?>
+                <li>
+                  <a href="<?= BASE_URL?>/dashboard" class="mx-2 my-1 inline-block rounded-md bg-[#f5f8ff] py-3 px-6 text-base font-medium text-dark hover:bg-primary hover:text-white">back to dashboard</a>
+                </li>
+              <?php else:?>
+                <li>
+                  <a href="<?= BASE_URL?>" class="mx-2 my-1 inline-block rounded-md bg-[#f5f8ff] py-3 px-6 text-base font-medium text-dark hover:bg-primary hover:text-white">Home</a>
+                </li>
+                <li>
+                  <a href="<?= BASE_URL?>/auth/login" class="mx-2 my-1 inline-block rounded-md bg-[#f5f8ff] py-3 px-6 text-base font-medium text-dark hover:bg-primary hover:text-white">Sign In</a>
+                </li>
+                <li>
+                  <a href="<?= BASE_URL?>/auth/register" class="mx-2 my-1 inline-block rounded-md bg-[#f5f8ff] py-3 px-6 text-base font-medium text-dark hover:bg-primary hover:text-white">Sign Up</a>
+                </li>
+              <?php endif;?>
             </ul>
           </div>
         </div>
