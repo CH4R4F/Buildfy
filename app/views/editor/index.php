@@ -12,8 +12,17 @@
   <title><?= $data['title']?></title>
 </head>
 <body>
-  <main class="flex w-full">
-    <aside class="space-y-4 w-[300px] shadow-md border-r border-gray-600 h-screen overflow-auto">
+  <div class="size-alert fixed inset-0 flex justify-center items-center bg-black/90 z-[60] hidden">
+    <div class="max-w-xs text-center select-none space-y-3">
+      <!-- warning icon -->
+      <i class="fas fa-exclamation-triangle text-orange-500 text-7xl"></i>
+      <h3 class="text-xl text-white">
+        Oops, we are sorry but you need a bigger screen to view this page and its content.
+      </h3>
+    </div>
+  </div>
+  <main class="w-full">
+    <aside class="fixed left-0 z-50 space-y-4 w-[300px] shadow-md border-r border-gray-600 h-screen overflow-auto">
       <header class="text-center p-4 border-b border-gray-300 select-none mb-4">
         <!-- logo -->
         <span class="font-bold text-center text-2xl">
@@ -24,8 +33,8 @@
         </sup>
       </header>
       <div class="px-4">
-        <button class="py-2 px-8 border border-gray-400 rounded-md flex w-full justify-center">
-          <!-- plus page icon -->
+        <!-- new page button -->
+        <button class="hover:bg-gray-200 duration-200 transition-all py-2 px-8 border border-gray-400 rounded-md flex w-full justify-center">
           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
           </svg>
@@ -66,6 +75,10 @@
         <button id="styles" class="tab-btn cursor-pointer flex-1 p-2">
           <i class="fa-solid fa-palette"></i>
         </button>
+        <!-- settings -->
+        <button id="settings" class="tab-btn cursor-pointer flex-1 p-2">
+          <i class="fa-solid fa-cog"></i>
+        </button>
       </div>
       <!-- tabs content -->
       <div class="!mt-0">
@@ -75,9 +88,17 @@
         <div class="tab-content" id="layers-content" data-tab="layers"></div>
         <!-- styles content -->
         <div class="tab-content" id="styles-content" data-tab="styles"></div>
+        <!-- settings content -->
+        <div class="tab-content" id="settings-content" data-tab="settings"></div>
       </div>
     </aside>
-    <div id="editor" class="flex-1"></div>
+    <div class="flex-1 relative">
+      <nav class="w-[calc(100%-300px)] border-b border-gray-300 ml-[300px] flex justify-between fixed top-0 z-30 h-10">
+        <div id="devices"></div>
+        <div id="actions"></div>
+      </nav>
+      <div id="editor" class="w-[calc(100%-300px)] pl-[300px] pt-10"></div>
+    </div>
   </main>
   <script src="<?= BASE_URL?>/assets/script/editor.js"></script>
   <script>
@@ -85,7 +106,6 @@
       container: '#editor',
       height: '100vh',
       fromElement: true,
-      width: '100%',
       storageManager: false,
       plugins: ['gjs-blocks-basic'],
       pluginsOpts: {
@@ -100,8 +120,127 @@
       styleManager: {
         appendTo: '#styles-content',
       },
+      traitManager: {
+        appendTo: '#settings-content',
+      },
+      selectorManager: {
+        appendTo: '#styles-content',
+      },
       panels: {
-        defaults: {}
+        defaults: [
+          {
+            id: "basic-actions",
+            el: "#actions",
+            buttons: [
+              {
+                id: "visibility",
+                active: true,
+                label: "<i class='fa-solid fa-eye'></i>",
+                command: "sw-visibility",
+              },
+              {
+                id: "save",
+                label: "<i class='fa fa-paper-plane btn-save'></i>",
+                command: "save-project",
+              },
+              {
+                id: "cmd-clear",
+                label: "<i class='fa-solid fa-trash'></i>",
+                command: "cmd-clear",
+              },
+              {
+                id: "undo",
+                label: "<i class='fa-solid fa-undo'></i>",
+                command: "undo",
+              },
+              {
+                id: "redo",
+                label: "<i class='fa-solid fa-redo'></i>",
+                command: "redo",
+              },
+              {
+                id: "export",
+                label: "<i class='fa-solid fa-download'></i>",
+                command: "export",
+              },
+            ]
+          },
+          {
+            id: "panel-devices",
+            el: "#devices",
+            buttons: [
+              {
+                id: "device-desktop",
+                label: "<i class='fa-solid fa-desktop'></i>",
+                command: "set-device-desktop",
+                active: true,
+                togglable: false,
+              },
+              {
+                id: "device-tablet",
+                label: "<i class='fa-solid fa-tablet'></i>",
+                command: "set-device-tablet",
+                togglable: false,
+                togglable: false,
+              },
+              {
+                id: "device-mobile",
+                label: '<i class="fa-solid fa-mobile"></i>',
+                command: "set-device-mobile",
+                togglable: false,
+              },
+            ]
+          }
+        ]
+      },
+      deviceManager: {
+        devices: [
+          {
+            name: 'Desktop',
+            width: ''
+          },
+          {
+            name: 'Tablet',
+            width: '720px',
+            widthMedia: '768px',
+          },
+          {
+            name: 'Mobile',
+            width: '320px',
+            widthMedia: '480px'
+          }
+        ]
+      }
+    })
+
+    // set devices commands
+    editor.Commands.add('set-device-desktop', {
+      run: (editor) => editor.setDevice('Desktop')
+    })
+    editor.Commands.add('set-device-tablet', {
+      run: (editor) => editor.setDevice('Tablet')
+    })
+    editor.Commands.add('set-device-mobile', {
+      run: (editor) => editor.setDevice('Mobile')
+    })
+    // clear command
+    editor.Commands.add('cmd-clear', {
+      run: (editor) => {
+        editor.DomComponents.clear()
+        editor.CssComposer.clear()
+      }
+    })
+    // save command
+    editor.Commands.add('save-project', {
+      run: (editor, sender) => {
+        sender && sender.set('active');
+        editor.store();
+      }
+    })
+    // export command
+    editor.Commands.add('export', {
+      run: (editor) => {
+        
       }
     })
   </script>

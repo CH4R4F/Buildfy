@@ -19,9 +19,11 @@
     }
     // for pages/editor/$page
     public function editor($page = null) {
+      // if href is pages/editor/
       if(empty($page) || $page == null) {
         redirect('pages/new');
         die();
+        // if href is pages/editor/page-name and page-name is not exist
       } else if(!file_exists('./preview/'.$_SESSION['user_data']['user_root']. '/'.$page)) {
         redirect('Error404');
         die();

@@ -22,3 +22,20 @@ tabBtns.forEach(function (item) {
 document.addEventListener("DOMContentLoaded", function () {
   activeTab("blocks");
 });
+
+function checkScreen() {
+  if (window.innerWidth < 970) {
+    document.querySelector(".size-alert").classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  } else {
+    document.querySelector(".size-alert").classList.add("hidden");
+    document.body.style.overflow = "auto";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  checkScreen();
+});
+window.addEventListener("resize", () => {
+  checkScreen();
+});
