@@ -15,6 +15,7 @@
             type="text"
             placeholder="Project Name"
           />
+          <input type="hidden" name="projectId" id="projectId">
           <button id="createProject" class="w-full px-3 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold rounded mt-4">
             Create
           </button>
@@ -35,7 +36,7 @@
           <div class="flex">
             <div class="flex items-center gap-4"> 
               <div class="relative hidden md:block">
-                <label class="sr-only" for="search"> Search </label>
+                <label class="sr-only" for="search">Search</label>
 
                 <input class="w-full h-10 pl-4 pr-10 text-sm bg-white border-none rounded-full shadow-sm sm:w-56" id="search" type="search" placeholder="Search website..." />
 
@@ -67,7 +68,7 @@
       <div>
         <h2 class="text-4xl mb-10">New Project</h2>
         <div class="flex flex-wrap justify-center content-center gap-10">
-          <a id="newProject" href="#" class="block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0">
+          <a href="#" class="newProject block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0" data-id="0">
             <div>
               <img src="<?= BASE_URL?>/assets/images/blank.png" alt="">
               <div class="p-4 flex justify-between border-t-2 ">
@@ -79,17 +80,17 @@
               </div>
             </div>
           </a>
-          <a href="#" class="block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0">
+          <a href="#" class="newProject block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0" data-id="1">
             <div>
               <img src="<?= BASE_URL?>/assets/images/blank.png" alt="">
             </div>
           </a>
-          <a href="#" class="block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0">
+          <a href="#" class="newProject block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0" data-id="1">
             <div>
               <img src="<?= BASE_URL?>/assets/images/blank.png" alt="">
             </div>
           </a>
-          <a href="#" class="block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0">
+          <a href="#" class="newProject block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0" data-id="1">
             <div>
               <img src="<?= BASE_URL?>/assets/images/blank.png" alt="">
             </div>
@@ -100,16 +101,20 @@
   </div>
   <script src="<?= BASE_URL?>/assets/script/sidebar.js"></script>
   <script>
-    let newProject = document.getElementById("newProject");
+    const newProject = [...document.querySelectorAll(".newProject")];
     const popupOverlay = document.querySelector('.popupOverlay');
     const createProjectBtn = document.getElementById("createProject");
     const projectInput = document.getElementById("projectName");
     const nameError = document.getElementById("nameError");
+    const projectId = document.getElementById('projectId');
 
-    newProject.addEventListener("click", function () {
-      document.querySelector("[data-role='newProject']").classList.remove("hidden");
-      popupOverlay.classList.remove("hidden");
-    });
+    newProject.forEach(project => {
+      project.addEventListener("click", function () {
+        document.querySelector("[data-role='newProject']").classList.remove("hidden");
+        popupOverlay.classList.remove("hidden");
+        projectId.value = +this.dataset.id;
+      });
+    })
 
     popupOverlay.addEventListener("click", function () {
       document.querySelector("[data-role='newProject']").classList.add("hidden");
@@ -120,7 +125,11 @@
       // create project in users folder
       let projectName = projectInput.value;
       let xhr = new XMLHttpRequest();
-      xhr.open('GET', "<?= BASE_URL?>/api/createProject/" + projectName);
+      if(projectId.value == 0) {
+        xhr.open('GET', "<?= BASE_URL?>/api/createProject/" + projectName);
+      } else {
+        xhr.open('GET', `<?= BASE_URL?>/api/createProject/${projectName}/${projectId.value}`);
+      }
       xhr.send();
       xhr.onload = function () {
         if (xhr.status === 200) {
@@ -130,7 +139,7 @@
           } else if(res == 'exist') {
             nameError.textContent = "Project name already exists";
           } else if(res == 'error') {
-            nameError.textContent = "Error creating project";
+            nameError.textContent = "something went wrong, please try again";
           } else {
             window.location.href = "<?= BASE_URL?>/pages/editor/" + res;
           }

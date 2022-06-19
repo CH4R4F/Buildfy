@@ -17,9 +17,11 @@
 
       $this->view('pages', $data);
     }
+
     // for pages/editor/$page
     public function editor($page = null) {
       // if href is pages/editor/
+      $pageModel = $this->model('Page');
       if(empty($page) || $page == null) {
         redirect('pages/new');
         die();
@@ -32,6 +34,7 @@
         'title' => "Buildfy || $page",
         'name' => $page,
       ];
+      $_SESSION['project_name'] = $page;
       $this->view("editor/index", $data);
     }
   }

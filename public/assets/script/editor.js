@@ -39,3 +39,58 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("resize", () => {
   checkScreen();
 });
+
+// =============== grapes js configuration ===================== //
+
+const { Modal } = editor;
+
+// set devices commands
+editor.Commands.add("set-device-desktop", {
+  run: (editor) => editor.setDevice("Desktop"),
+});
+editor.Commands.add("set-device-tablet", {
+  run: (editor) => editor.setDevice("Tablet"),
+});
+editor.Commands.add("set-device-mobile", {
+  run: (editor) => editor.setDevice("Mobile"),
+});
+// clear command
+editor.Commands.add("cmd-clear", {
+  run: (editor) => {
+    editor.DomComponents.clear();
+    editor.CssComposer.clear();
+  },
+});
+// save command
+editor.Commands.add("save-project", {
+  run: (editor, sender) => {
+    sender && sender.set("active");
+    editor.store();
+  },
+});
+
+// undo command
+editor.Commands.add("undo", {
+  run: (editor) => editor.UndoManager.undo(),
+});
+// redo command
+editor.Commands.add("redo", {
+  run: (editor) => editor.UndoManager.redo(),
+});
+// save command
+editor.Commands.add("save-project", {
+  run: (editor, sender) => {
+    sender && sender.set("active");
+    editor.store();
+  },
+});
+editor.on("storage:store", function (e) {
+  // console.log("Stored ", e);
+});
+
+editor.on("storage:load", function (e) {
+  // components = JSON.parse(e.components);
+  // console.log(e);
+  editor.setComponents(JSON.parse(e.html));
+  editor.setStyle(JSON.parse(e.css));
+});

@@ -1,7 +1,11 @@
 <?php
   class Api extends Controller {
+    public function index() {
+      echo "Hi";
+    }
 
-    public function createProject($name = null) {
+    public function createProject($name = null, $template = null) {
+      $page = $this->model('Page');
       if(empty($name) || $name == null) {
         // return a message that the project name is required;
         echo "empty";
@@ -21,13 +25,43 @@
           // create project folder
           mkdir($user_folder . '/' . $name);
         }
-      } 
-      
-      $pageModel = $this->model('Page');
-      if(!$pageModel->newPage($name, $_SESSION['user_data']['user_id'])) {
-        echo 'error';
-        exit();
       }
-      echo $name;
+      if($template == null) {
+        if($page->newPage($name, $_SESSION['user_data']['user_id'])) {
+          echo $name;
+        } else {
+          echo "error";
+          exit();
+        }
+      } else {
+        if($page->clonePage($name, $_SESSION['user_data']['user_id'], $template)) {
+          echo $name;
+        } else {
+          return 'error';
+          exit();
+        }
+      }
+    }
+
+    public function saveProject($pageName) {
+      header('Content-Type: application/json', true);
+      $data = json_decode(file_get_contents("php://input"), true);
+      $page = $this->model('Page');
+      if($page->updatePage($pageName, $data)) {
+        echo json_encode(array('status' => 'success'));
+      } else {
+        echo "error";
+      }
+    }
+
+    public function loadProject($pageName) {
+      header('Content-Type: application/json', true);
+      $page = $this->model('Page');
+      $row = $page->getPage($pageName);
+      if($row) {
+        echo $row;
+      } else {
+        echo "error";
+      }
     }
   }

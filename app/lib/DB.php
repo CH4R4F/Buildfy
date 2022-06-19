@@ -58,6 +58,10 @@
       $this->execute();
       return $this->stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function singleObject() {
+      $this->execute();
+      return $this->stmt->fetch(PDO::FETCH_OBJ);
+    }
     // rowCount methode to get the row count of the query
     public function rowCount() {
       return $this->stmt->rowCount();
