@@ -84,9 +84,6 @@ editor.Commands.add("save-project", {
     editor.store();
   },
 });
-editor.on("storage:store", function (e) {
-  // console.log("Stored ", e);
-});
 
 editor.on("storage:load", function (e) {
   // components = JSON.parse(e.components);

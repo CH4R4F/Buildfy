@@ -61,8 +61,10 @@
           $log = $user->login($email, $password);
           if($log == 'user') {
             redirect('dashboard');
+            die();
           } else if($log == 'admin') {
             redirect('admin');
+            die();
           } else {
             $data['error'] = 'Email or password is incorrect';
           }

@@ -108,7 +108,7 @@
       fromElement: false,
       urlStore: 'http://localhost/buildfy/api/saveProject/<?= $_SESSION['project_name']?>',
       urlLoad: 'http://localhost/buildfy/api/loadProject/<?= $_SESSION['project_name']?>',
-      autosave: true,
+      autosave: false,
       autoload: true,
       stepsBeforeSave: 1,
       contentTypeJson: true,

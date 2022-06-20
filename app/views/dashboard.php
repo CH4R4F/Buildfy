@@ -47,14 +47,16 @@
       <?php if(isset($data['userPages']) && $data['userPages']):?>
         <div class="flex px-10 py-4 space-x-4">
           <?php foreach($data['userPages'] as $page):?>
-            <a href="<?= BASE_URL?>/pages/editor/<?= $page['page_name']?>">
-              <div class="rounded-md overflow-hidden">
-                <img src="<?= BASE_URL?>/assets/images/lorem.jpg" class="w-20 h-20">
-              </div>
-              <div class="text-center">
-                <p class="text-sm text-gray-600"><?= $page['page_name']?></p>
-              </div>
-            </a>
+            <div class="w-20">
+              <a href="<?= BASE_URL?>/pages/editor/<?= $page['page_name']?>">
+                <div class="rounded-md overflow-hidden">
+                  <img src="<?= BASE_URL?>/assets/images/lorem.jpg">
+                </div>
+                <div class="text-center">
+                  <p class="text-sm text-gray-600"><?= $page['page_name']?></p>
+                </div>
+              </a>
+            </div>
           <?php endforeach;?>
           <a href="<?= BASE_URL?>/pages/new" class="w-20 h-20 flex justify-center items-center bg-primary rounded-md">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
@@ -70,7 +72,7 @@
         <p class="mb-10">
         Bring your ideas to life — we can't wait to see what you've got!
         </p>
-        <a href="<?= BASE_URL?>/pages/" class="bg-primary text-white px-8 py-4">
+        <a href="<?= BASE_URL?>/pages/new" class="bg-primary text-white px-8 py-4">
           New Site
         </a>
       </div>
