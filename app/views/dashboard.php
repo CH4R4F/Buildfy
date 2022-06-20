@@ -44,6 +44,25 @@
       </div>
     </header>
     <div class="py-10 px-2">
+      <?php if(isset($data['userPages']) && $data['userPages']):?>
+        <div class="flex px-10 py-4 space-x-4">
+          <?php foreach($data['userPages'] as $page):?>
+            <a href="<?= BASE_URL?>/pages/editor/<?= $page['page_name']?>">
+              <div class="rounded-md overflow-hidden">
+                <img src="<?= BASE_URL?>/assets/images/lorem.jpg" class="w-20 h-20">
+              </div>
+              <div class="text-center">
+                <p class="text-sm text-gray-600"><?= $page['page_name']?></p>
+              </div>
+            </a>
+          <?php endforeach;?>
+          <a href="<?= BASE_URL?>/pages/new" class="w-20 h-20 flex justify-center items-center bg-primary rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </a>
+        </div>
+      <?php else:?>
       <div class="mx-auto w-full max-w-[700px] bg-gray-300 text-center px-20 py-10">
         <h2 class="text-2xl">
           Start building in buildfy
@@ -55,6 +74,8 @@
           New Site
         </a>
       </div>
+
+      <?php endif?>
     </div>
   </div>
   <script src="<?= BASE_URL?>/assets/script/sidebar.js"></script>

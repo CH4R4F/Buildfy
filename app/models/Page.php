@@ -115,4 +115,18 @@
         return false;
       }
     }
+
+    public function getUserPages($user) {
+      $query = "SELECT page_name FROM pages WHERE page_owner = :page_owner";
+      $this->db->query($query);
+      // bind values
+      $this->db->bind(':page_owner', $user);
+      // execute
+      $rows = $this->db->resultSet();
+      if($this->db->rowCount() > 0) {
+        return $rows;
+      } else {
+        return false;
+      }
+    }
   }

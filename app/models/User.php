@@ -8,12 +8,13 @@
     // register user
     public function register($data) {
       $folderCode = bin2hex(random_bytes(10));
-      $this->db->query("INSERT INTO users (user_name, user_email, user_password, user_root) VALUES (:user_name, :user_email, :user_password, :user_root)");
+      $this->db->query("INSERT INTO users (user_name, user_email, user_password, user_root, user_role) VALUES (:user_name, :user_email, :user_password, :user_root, :user_role)");
       // bind values
       $this->db->bind(':user_name', $data['user_name']);
       $this->db->bind(':user_email', $data['user_email']);
       $this->db->bind(':user_password', $data['user_password']);
       $this->db->bind(':user_root', $folderCode);
+      $this->db->bind(':user_role', 'user');
       // execute
       if($this->db->execute()) {
         return true;
@@ -29,7 +30,7 @@
       if($row = $this->db->single()) {
         if($password == $row['user_password']) {
           $this->createSession($row);
-          return $row;
+          return $row['user_role'];
         } else {
           return false;
         }
@@ -51,13 +52,14 @@
 
     public function googleRegister($data) {
       $folderCode = bin2hex(random_bytes(10));
-      $this->db->query("INSERT INTO users (user_name, user_email, user_token, user_image, user_root) VALUES (:user_name, :user_email, :user_token, :user_image, :user_root)");
+      $this->db->query("INSERT INTO users (user_name, user_email, user_token, user_image, user_root, user_role) VALUES (:user_name, :user_email, :user_token, :user_image, :user_root, :user_role)");
       // bind values
       $this->db->bind(':user_name', $data['name']);
       $this->db->bind(':user_email', $data['email']);
       $this->db->bind(':user_token', $data['id']);
       $this->db->bind(':user_image', $data['picture']);
       $this->db->bind(':user_root', $folderCode);
+      $this->db->bind(':user_role', 'user');
       // execute
       if($this->db->execute()) {
         return true;

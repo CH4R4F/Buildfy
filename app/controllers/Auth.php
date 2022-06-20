@@ -58,8 +58,11 @@
         if($user->isGoogleAccount($email)) {
           $data['error'] = 'This is a google account, please login with google';
         } else {
-          if($user->login($email, $password)) {
+          $log = $user->login($email, $password);
+          if($log == 'user') {
             redirect('dashboard');
+          } else if($log == 'admin') {
+            redirect('admin');
           } else {
             $data['error'] = 'Email or password is incorrect';
           }
