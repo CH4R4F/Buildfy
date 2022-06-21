@@ -80,21 +80,20 @@
               </div>
             </div>
           </a>
-          <a href="#" class="newProject block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0" data-id="1">
-            <div>
-              <img src="<?= BASE_URL?>/assets/images/blank.png" alt="">
-            </div>
-          </a>
-          <a href="#" class="newProject block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0" data-id="1">
-            <div>
-              <img src="<?= BASE_URL?>/assets/images/blank.png" alt="">
-            </div>
-          </a>
-          <a href="#" class="newProject block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0" data-id="1">
-            <div>
-              <img src="<?= BASE_URL?>/assets/images/blank.png" alt="">
-            </div>
-          </a>
+          <?php foreach($data['free_templates'] as $template):?>
+            <a href="#" class="newProject block w-full border border-gray-500 hover:shadow-lg duration-200 transition-all max-w-[250px] mx-auto md:m-0" data-id="<?= $template['template_id']?>">
+              <div class="flex flex-col h-full">
+                <img class="h-full" src="<?= BASE_URL?>/assets/images/<?= $template['template_preview']?>" alt="">
+                <div class="p-4 flex justify-between border-t-2 ">
+                  <p class="font-bold"><?= $template['template_name']?></p>
+                  <!-- gift icon fontawesom -->
+                  <p class="text-gray-400">
+                    <i class="fa-solid fa-gift"></i> <?= $template['template_category']?>
+                  </p>
+                </div>
+              </div>
+            </a>
+          <?php endforeach;?>
         </div>
       </div>
     </div>

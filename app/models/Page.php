@@ -117,7 +117,7 @@
     }
 
     public function getUserPages($user) {
-      $query = "SELECT page_name FROM pages WHERE page_owner = :page_owner";
+      $query = "SELECT page_name, page_id FROM pages WHERE page_owner = :page_owner";
       $this->db->query($query);
       // bind values
       $this->db->bind(':page_owner', $user);
@@ -125,6 +125,20 @@
       $rows = $this->db->resultSet();
       if($this->db->rowCount() > 0) {
         return $rows;
+      } else {
+        return false;
+      }
+    }
+
+    public function deletePage($page) {
+      $query = "DELETE FROM pages WHERE page_name = :page_name AND page_owner = :page_owner";
+      $this->db->query($query);
+      // bind values
+      $this->db->bind(':page_name', $page);
+      $this->db->bind(':page_owner', $_SESSION['user_data']['user_id']);
+      // execute
+      if($this->db->execute()) {
+        return true;
       } else {
         return false;
       }

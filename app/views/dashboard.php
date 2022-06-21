@@ -43,23 +43,26 @@
         </div>
       </div>
     </header>
-    <div class="py-10 px-2">
+    <div id="projectsContainer" class="py-10 px-2">
       <?php if(isset($data['userPages']) && $data['userPages']):?>
-        <div class="flex px-10 py-4 space-x-4">
+        <div class="flex px-10 py-4 space-x-4 flex-wrap items-start">
           <?php foreach($data['userPages'] as $page):?>
-            <div class="w-20">
+            <div class="">
               <a href="<?= BASE_URL?>/pages/editor/<?= $page['page_name']?>">
                 <div class="rounded-md overflow-hidden">
-                  <img src="<?= BASE_URL?>/assets/images/lorem.jpg">
-                </div>
-                <div class="text-center">
-                  <p class="text-sm text-gray-600"><?= $page['page_name']?></p>
+                  <img class="w-40 h-40" src="<?= BASE_URL?>/assets/images/lorem.jpg">
                 </div>
               </a>
+                <div class="flex justify-between items-center">
+                  <span class="text-xl text-gray-600"><?= $page['page_name']?></span>
+                  <a href="<?= BASE_URL?>/api/deleteProject/<?= $page['page_id']?>">
+                    <i class="fa-solid fa-trash-alt text-red-600 hover:text-red-800 cursor-pointer"></i>
+                  </a>
+                </div>
             </div>
           <?php endforeach;?>
-          <a href="<?= BASE_URL?>/pages/new" class="w-20 h-20 flex justify-center items-center bg-primary rounded-md">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
+          <a href="<?= BASE_URL?>/pages/new" class="w-40 h-40 flex justify-center items-center bg-primary rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </a>
@@ -70,7 +73,7 @@
           Start building in buildfy
         </h2>
         <p class="mb-10">
-        Bring your ideas to life — we can't wait to see what you've got!
+          Bring your ideas to life — we can't wait to see what you've got!
         </p>
         <a href="<?= BASE_URL?>/pages/new" class="bg-primary text-white px-8 py-4">
           New Site

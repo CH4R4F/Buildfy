@@ -6,7 +6,8 @@
     }
     // for pages/
     public function index() {
-      echo "Hi";
+      $this->view('Error404');
+      die();
     }
     // for pages/new
     public function new() {
@@ -14,7 +15,9 @@
         'title' => 'Buildfy || Create Page',
         'active' => ''
       ];
-
+      $templateModel = $this->model('Template');
+      $templates = $templateModel->getTemplates('free');
+      $data['free_templates'] = $templates;
       $this->view('pages', $data);
     }
 

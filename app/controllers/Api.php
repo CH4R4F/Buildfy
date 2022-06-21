@@ -64,4 +64,21 @@
         echo "error";
       }
     }
+
+    public function deleteProject($pageName) {
+      $page = $this->model('Page');
+      $data = [
+        'title' => 'Dashboard',
+        'active' => 'dashboard',
+      ];
+      if($page->deletePage($pageName)) {
+        $data['success'] = 'Project deleted successfully.';
+        $this->view('dashboard', $data);
+        die();
+      } else {
+        $data['error'] = 'Project could not be deleted.';
+        $this->view('dashboard', $data);
+        die();
+      }
+    }
   }
