@@ -131,10 +131,10 @@
     }
 
     public function deletePage($page) {
-      $query = "DELETE FROM pages WHERE page_name = :page_name AND page_owner = :page_owner";
+      $query = "DELETE FROM pages WHERE page_id = :page_id AND page_owner = :page_owner";
       $this->db->query($query);
       // bind values
-      $this->db->bind(':page_name', $page);
+      $this->db->bind(':page_id', $page);
       $this->db->bind(':page_owner', $_SESSION['user_data']['user_id']);
       // execute
       if($this->db->execute()) {

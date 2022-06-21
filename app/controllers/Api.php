@@ -73,11 +73,10 @@
       ];
       if($page->deletePage($pageName)) {
         $data['success'] = 'Project deleted successfully.';
-        $this->view('dashboard', $data);
-        die();
+        redirect('dashboard');
       } else {
         $data['error'] = 'Project could not be deleted.';
-        $this->view('dashboard', $data);
+        redirect('dashboard');
         die();
       }
     }
