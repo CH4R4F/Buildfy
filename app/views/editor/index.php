@@ -25,7 +25,7 @@
     </div>
   </div>
   <main class="w-full">
-    <aside class="fixed left-0 z-50 space-y-4 w-[300px] shadow-md border-r border-gray-600 h-screen overflow-auto">
+    <aside id="sidebar" class="fixed left-0 z-50 space-y-4 w-[300px] shadow-md border-r border-gray-600 h-screen overflow-auto">
       <header class="text-center p-4 border-b border-gray-300 select-none mb-4">
         <!-- logo -->
         <span class="font-bold text-center text-2xl">
@@ -195,6 +195,11 @@
               label: "<i class='fa-solid fa-code'></i>",
               command: "export-template",
               context: "export-template",
+            },
+            {
+              id: "preview",
+              label: "<i class='fa-solid fa-expand'></i>",
+              command: "preview",
             },
             //   id: "show-json",
             //   label: "<i class='fa-solid fa-code'></i>",

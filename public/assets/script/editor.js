@@ -91,3 +91,17 @@ editor.on("storage:load", function (e) {
   editor.setComponents(JSON.parse(e.html));
   editor.setStyle(JSON.parse(e.css));
 });
+
+editor.on("run:preview", () => {
+  editor.stopCommand("sw-visibility");
+  document.getElementById("sidebar").classList.add("!hidden");
+  document.getElementById("editor").classList.remove("pl-[300px]");
+  document.getElementById("editor").classList.add("w-full");
+});
+
+editor.on("stop:preview", () => {
+  editor.runCommand("sw-visibility");
+  document.getElementById("sidebar").classList.remove("!hidden");
+  document.getElementById("editor").classList.add("pl-[300px]");
+  document.getElementById("editor").classList.remove("w-full");
+});
