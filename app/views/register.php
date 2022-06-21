@@ -41,18 +41,21 @@
                 <img src="<?= BASE_URL?>/assets/images/logo.png" alt="logo" />
               </a>
             </div>
-            <form method="POST">
+            <form method="POST" id="register">
               <div class="mb-6">
-                <input required name="user_name" type="text" placeholder="Name" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
+                <input id="name" required name="user_name" type="text" placeholder="Name" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
+                <p class="name_error text-left text-red-500 text-sm"></p>
               </div>
               <div class="mb-6">
-                <input required name="user_email" type="email" placeholder="Email" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
+                <input id="email" required name="user_email" type="email" placeholder="Email" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
+                <p class="email_error text-left text-red-500 text-sm"></p>
               </div>
               <div class="mb-6">
-                <input required name="user_password" type="password" placeholder="Password" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
+                <input id="password" required name="user_password" type="password" placeholder="Password" class="bordder-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none transition focus:border-primary focus-visible:shadow-none" />
+                <p class="password_error text-left text-red-500 text-sm"></p>
               </div>
               <div class="mb-10">
-                <input name="register" type="submit" value="Sign Up" class="bordder-primary w-full cursor-pointer rounded-md border bg-primary py-3 px-5 text-base text-white transition duration-300 ease-in-out hover:shadow-md" />
+                <input id="submit" name="register" type="submit" value="Sign Up" class="bordder-primary w-full cursor-pointer rounded-md border bg-primary py-3 px-5 text-base text-white transition duration-300 ease-in-out hover:shadow-md" />
               </div>
             </form>
             <p class="mb-6 text-base text-[#adadad]">Connect With</p>
@@ -129,5 +132,36 @@
         text: '<?php echo $data['error']?>',
       })
     <?php endif;?>
+
+    let form = document.getElementById('register');
+    // validate all inputes
+    form.addEventListener('submit', (e) => {
+      let nameValue = document.getElementById('name').value;
+      let emailValue = document.getElementById('email').value;
+      let passwordValue = document.getElementById('password').value;
+      let nameError = document.querySelector('.name_error');
+      let emailError = document.querySelector('.email_error');
+      let passwordError = document.querySelector('.password_error');
+
+      // chec if name contain atleast 3 characters
+      if(!nameValue.match(/^[a-zA-Z]{3,}$/)){
+        e.preventDefault();
+        nameError.innerHTML = 'Name must contain atleast 3 characters';
+      } else {
+        nameError.innerHTML = '';
+      }
+      if(!emailValue.match(/^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$/)){
+        e.preventDefault();
+        emailError.innerHTML = 'Email must be valid';
+      } else {
+        emailError.innerHTML = '';
+      }
+      if(!passwordValue.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)){
+        e.preventDefault();
+        passwordError.innerHTML = 'Password must be at least 8 characters, contain at least one lowercase letter, one uppercase letter, one number and one special character'; 
+      } else {
+        passwordError.innerHTML = '';
+      }
+    })
   </script>
 </body>
